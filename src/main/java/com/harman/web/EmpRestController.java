@@ -35,12 +35,12 @@ public class EmpRestController {
 		return elist;
 	}
 	
-//	@GetMapping("/viewall")
-//	@RequestMapping({ "/validateLogin" })
-//	public User validateLogin() {
-//		return new User("User successfully authenticated");
-//	}
-//	
+	@GetMapping("/viewall")
+	@RequestMapping({ "/validateLogin" })
+	public User validateLogin() {
+		return new User("User successfully authenticated");
+	}
+	
 	
 //	@RequestMapping(value="/viewbyid" , method=RequestMethod.GET)
 	@GetMapping("/viewbyid/{empid}")
@@ -57,9 +57,6 @@ public class EmpRestController {
 		List<Emp> lst = repo.findByEmpDesignation(designation);
 		return lst;
 	}
-	
-	
-	
 }
 
 

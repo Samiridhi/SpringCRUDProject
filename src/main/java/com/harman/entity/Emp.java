@@ -15,7 +15,7 @@ import org.hibernate.annotations.DynamicUpdate;
 public class Emp {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="emp_id")
 	private int empId;
 	
