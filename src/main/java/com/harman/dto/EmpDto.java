@@ -2,10 +2,10 @@ package com.harman.dto;
 
 public class EmpDto {
 
-	private int empId;
+	private Integer empId;
 	private String empFName;
 	private String empLName;
-	private String empPManager;
+	private Integer empPManager;
 	private String empDesignation;
 	private String empProject;
 	
@@ -33,10 +33,10 @@ public class EmpDto {
 	public void setEmpLName(String empLName) {
 		this.empLName = empLName;
 	}
-	public String getEmpPManager() {
+	public Integer getEmpPManager() {
 		return empPManager;
 	}
-	public void setEmpPManager(String empPManager) {
+	public void setEmpPManager(Integer empPManager) {
 		this.empPManager = empPManager;
 	}
 	public String getEmpDesignation() {

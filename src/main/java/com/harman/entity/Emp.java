@@ -17,7 +17,7 @@ public class Emp {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="emp_id")
-	private int empId;
+	private Integer empId;
 	
 	@Column(name="emp_fname", nullable = false)
 	private String empFName;
@@ -26,11 +26,22 @@ public class Emp {
 	private String empLName;
 	
 	@Column(name="emp_projManager")
-	private String empPManager;
+	private Integer empPManager;
 	
 	@Column(name="emp_designation")
 	private String empDesignation;
 	
+	
+//	public Emp(int empId, String empFName, String empLName, String empPManager, String empDesignation,
+//			String empProject) {
+//		super();
+//		this.empId = empId;
+//		this.empFName = empFName;
+//		this.empLName = empLName;
+//		this.empPManager = empPManager;
+//		this.empDesignation = empDesignation;
+//		this.empProject = empProject;
+//	}
 	public String getEmpProject() {
 		return empProject;
 	}
@@ -58,10 +69,10 @@ public class Emp {
 	public void setEmpLName(String empLName) {
 		this.empLName = empLName;
 	}
-	public String getEmpPManager() {
+	public Integer getEmpPManager() {
 		return empPManager;
 	}
-	public void setEmpPManager(String empPManager) {
+	public void setEmpPManager(Integer empPManager) {
 		this.empPManager = empPManager;
 	}
 	public String getEmpDesignation() {
@@ -75,6 +86,11 @@ public class Emp {
 		return "Emp [empId=" + empId + ", empFName=" + empFName + ", empLName=" + empLName + ", empPManager="
 				+ empPManager + ", empDesignation=" + empDesignation + "]";
 	}
+//	@Override
+//	public String toString() {
+//		return "Emp [empId=" + empId + ", empFName=" + empFName + ", empLName=" + empLName + ", empDesignation="
+//				+ empDesignation + ", empProject=" + empProject + "]";
+//	}
 	
 	//no argument constructor
 

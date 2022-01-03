@@ -1,6 +1,5 @@
 package com.harman.web;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -9,29 +8,28 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.harman.Exception.EmployeeNotFoundException;
-import com.harman.dao.EmpRepo;
-import com.harman.entity.Emp;
+
+import com.harman.dao.ManagerRepo;
+import com.harman.entity.Manager;
 import com.harman.model.User;
 
 @RestController
-@RequestMapping("/employee")
-//angular url
+@RequestMapping("/manager")
 @CrossOrigin(origins="http://localhost:4200")
-public class EmpRestController {
+public class ManagerRestController {
 
 	@Autowired
-	private EmpRepo repo;
+	private ManagerRepo repo;
 	
 //	@RequestMapping(value="/viewall" , method=RequestMethod.GET)
 	@GetMapping("/viewall")
-	public List<Emp> viewEmployee(){
-		List<Emp> elist = repo.findAll();
+	public List<Manager> viewManager(){
+		List<Manager> mlist = repo.findAll();
 //		Collections.sort((List<>) elist);
-		return elist;
+		return mlist;
 	}
 	
 	@GetMapping("/viewall")
@@ -43,24 +41,13 @@ public class EmpRestController {
 	
 //	@RequestMapping(value="/viewbyid" , method=RequestMethod.GET)
 	@GetMapping("/viewbyid/{empid}")
-	public Emp viewEmployee(@PathVariable("empid") int eid) throws EmployeeNotFoundException{
-		Optional<Emp> optemp = repo.findById(eid);
-		if(optemp.isEmpty()) 
-			throw new EmployeeNotFoundException("Employee not found for "+eid);
-		Emp emp = optemp.get();
-		return emp;
+	public Manager viewManager(@PathVariable("empid") int mid) throws EmployeeNotFoundException{
+		Optional<Manager> optmanager = repo.findById(mid);
+		if(optmanager.isEmpty()) 
+			throw new EmployeeNotFoundException("Employee Manager not found for "+mid);
+		Manager manager = optmanager.get();
+		return manager;
 	}
 	
-	@GetMapping("/viewbydesignation")
-	public List<Emp> viewEmployee(@RequestParam("dname") String designation){
-		List<Emp> lst = repo.findByEmpDesignation(designation);
-		return lst;
-	}
+	
 }
-
-
-
-
-
-
-
