@@ -4,6 +4,8 @@ package com.harman.web;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ import com.harman.dao.EmpRepo;
 import com.harman.entity.Emp;
 import com.harman.model.User;
 
+
 @RestController
 @RequestMapping("/employee")
 //angular url
@@ -26,11 +29,15 @@ public class EmpRestController {
 	@Autowired
 	private EmpRepo repo;
 	
+//	Logger logger = LoggerFactory.getLogger(EmpRestController.class);
+	Logger logger = LoggerFactory.logger(EmpRestController.class);
+	
 //	@RequestMapping(value="/viewall" , method=RequestMethod.GET)
 	@GetMapping("/viewall")
 	public List<Emp> viewEmployee(){
 		List<Emp> elist = repo.findAll();
 //		Collections.sort((List<>) elist);
+		logger.info(elist);
 		return elist;
 	}
 	

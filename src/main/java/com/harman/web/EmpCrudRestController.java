@@ -3,10 +3,13 @@ package com.harman.web;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +31,7 @@ public class EmpCrudRestController {
 
 	@Autowired
 	private EmpRepo repo;
+	Logger logger = LoggerFactory.logger(EmpRestController.class);
 	
 	@GetMapping("/viewbymanager")
 	public List<Emp> viewEmployee(@RequestParam("manager") String manager){
@@ -46,7 +50,7 @@ public class EmpCrudRestController {
 //	}
 	
 	@PostMapping("/addemp")
-	public SuccessMsg addEmployee(@RequestBody EmpDto empdto) throws IdAlreadyExistsException {
+	public SuccessMsg addEmployee(@RequestBody EmpDto empdto) throws IdAlreadyExistsException, EmployeeNotFoundException {
 		Optional<Emp> optemp = repo.findById(empdto.getEmpId());
 		if(optemp.isPresent())
 			throw new IdAlreadyExistsException("ID already exist");
@@ -57,11 +61,33 @@ public class EmpCrudRestController {
 		emp.setEmpPManager(empdto.getEmpPManager());
 		emp.setEmpDesignation(empdto.getEmpDesignation());
 		emp.setEmpProject(empdto.getEmpProject());
-		
+//		emp.setManager(emp);
+		emp.setManager(manager(emp.getEmpPManager()));		
 		repo.save(emp);
 		return new SuccessMsg("Employee Added Successfully");
 				
 	}
+	
+	public Emp manager(String name) throws EmployeeNotFoundException {
+		List<Emp> optemp = repo.findByEmpFName(name.toLowerCase());
+		if(optemp.isEmpty()) 
+			throw new EmployeeNotFoundException("Employee not found for "+ name);
+		Emp emp = optemp.get(0);
+		System.out.print(emp);
+//		emp.setManager(emp);
+		return emp;
+	}
+//	public SuccessMsg deletesubordinates(String name) throws EmployeeNotFoundException {
+//		List<Emp> optemp = repo.findByEmpPManager(name.toLowerCase());
+//		if(optemp.isEmpty()) 
+//			throw new EmployeeNotFoundException("Employee not found for "+ name);
+//		Emp emp = optemp.get(0);
+//		System.out.print(emp);
+//		repo.delete(emp);
+////		emp.setManager(emp);
+//		return new SuccessMsg("Employee Deleted");
+//	}
+
 	
 	@DeleteMapping("/removeemp")
 	public SuccessMsg removeEmployee(@RequestParam("empId") int eid) throws EmployeeNotFoundException {
@@ -69,7 +95,11 @@ public class EmpCrudRestController {
 		if(optemp.isEmpty())
 			throw new EmployeeNotFoundException("Employee not found");
 		Emp emp = optemp.get();
-		repo.delete(emp);
+		String managerid = emp.getEmpFName();
+		logger.info(managerid);
+		logger.info(emp);
+//		deletesubordinates(managerid);
+		repo.delete(emp);		
 		return new SuccessMsg("Employee Deleted");
 	}
 	
@@ -84,6 +114,7 @@ public class EmpCrudRestController {
 		emp.setEmpPManager(empdto.getEmpPManager());
 		emp.setEmpDesignation(empdto.getEmpDesignation());
 		emp.setEmpProject(empdto.getEmpProject());
+		emp.setManager(manager(emp.getEmpPManager()));	
 		repo.save(emp);
 		return new SuccessMsg("Employee Updated");
 	}

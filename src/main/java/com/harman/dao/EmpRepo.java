@@ -1,6 +1,7 @@
 package com.harman.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,4 +13,5 @@ public interface EmpRepo extends JpaRepository<Emp, Integer>{
 
 	public List<Emp> findByEmpDesignation(String designation);
 	public List<Emp> findByEmpPManager(String manager);
+	public List<Emp> findByEmpFName(String name);
 }

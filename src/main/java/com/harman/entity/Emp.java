@@ -1,13 +1,22 @@
 package com.harman.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="ProjectEmployee")
@@ -17,7 +26,7 @@ public class Emp {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="emp_id")
-	private Integer empId;
+	private int empId;
 	
 	@Column(name="emp_fname", nullable = false)
 	private String empFName;
@@ -26,22 +35,42 @@ public class Emp {
 	private String empLName;
 	
 	@Column(name="emp_projManager")
-	private Integer empPManager;
+	private String empPManager;
 	
 	@Column(name="emp_designation")
 	private String empDesignation;
 	
+	@ManyToOne()
+	@JoinColumn(name="manager_id")
+	@JsonBackReference
+	private Emp manager;
 	
-//	public Emp(int empId, String empFName, String empLName, String empPManager, String empDesignation,
-//			String empProject) {
-//		super();
-//		this.empId = empId;
-//		this.empFName = empFName;
-//		this.empLName = empLName;
-//		this.empPManager = empPManager;
-//		this.empDesignation = empDesignation;
-//		this.empProject = empProject;
-//	}
+	@Column(name = "manager_id", insertable  = false, updatable = false)
+	private Integer idmanager;
+
+	public Integer getIdmanager() {
+		return idmanager;
+	}
+	public void setIdmanager(Integer idmanager) {
+		this.idmanager = idmanager;
+	}
+	public Set<Emp> getSubordinates() {
+		return subordinates;
+	}
+	public void setSubordinates(Set<Emp> subordinates) {
+		this.subordinates = subordinates;
+	}
+	@OneToMany(mappedBy="manager",orphanRemoval = true)
+	@JsonBackReference
+	private Set<Emp> subordinates = new HashSet<Emp>();
+
+	public Emp getManager() {
+		return manager;
+	}
+	public void setManager(Emp manager) {
+		this.manager = manager;
+	}
+
 	public String getEmpProject() {
 		return empProject;
 	}
@@ -69,10 +98,10 @@ public class Emp {
 	public void setEmpLName(String empLName) {
 		this.empLName = empLName;
 	}
-	public Integer getEmpPManager() {
+	public String getEmpPManager() {
 		return empPManager;
 	}
-	public void setEmpPManager(Integer empPManager) {
+	public void setEmpPManager(String empPManager) {
 		this.empPManager = empPManager;
 	}
 	public String getEmpDesignation() {
@@ -84,8 +113,10 @@ public class Emp {
 	@Override
 	public String toString() {
 		return "Emp [empId=" + empId + ", empFName=" + empFName + ", empLName=" + empLName + ", empPManager="
-				+ empPManager + ", empDesignation=" + empDesignation + "]";
+				+ empPManager + ", empDesignation=" + empDesignation + ", manager=" + manager + ", subordinates="
+				+ subordinates + ", empProject=" + empProject + "]";
 	}
+	
 //	@Override
 //	public String toString() {
 //		return "Emp [empId=" + empId + ", empFName=" + empFName + ", empLName=" + empLName + ", empDesignation="
