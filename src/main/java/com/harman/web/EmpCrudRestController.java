@@ -73,7 +73,7 @@ public class EmpCrudRestController {
 		if(optemp.isEmpty()) 
 			throw new EmployeeNotFoundException("Employee not found for "+ name);
 		Emp emp = optemp.get(0);
-		System.out.print(emp);
+//		System.out.print(emp);
 //		emp.setManager(emp);
 		return emp;
 	}

@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,7 +41,7 @@ public class Emp {
 	@Column(name="emp_designation")
 	private String empDesignation;
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="manager_id")
 	@JsonBackReference
 	private Emp manager;
@@ -54,9 +55,7 @@ public class Emp {
 	public void setIdmanager(Integer idmanager) {
 		this.idmanager = idmanager;
 	}
-	public Set<Emp> getSubordinates() {
-		return subordinates;
-	}
+	
 	public void setSubordinates(Set<Emp> subordinates) {
 		this.subordinates = subordinates;
 	}
