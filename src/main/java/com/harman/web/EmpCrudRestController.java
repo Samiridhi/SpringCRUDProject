@@ -38,16 +38,7 @@ public class EmpCrudRestController {
 		List<Emp> lst = repo.findByEmpPManager(manager);
 		return lst;
 	}
-//	@GetMapping("/viewbyfirstname")
-//	public List<Emp> viewEmployee1(@RequestParam("fname") String fname){
-//		List<Emp> lst = repo.findByEmpPManager(fname);
-//		return lst;
-//	}
-//	@GetMapping("/viewbylastname")
-//	public List<Emp> viewEmployee2(@RequestParam("lname") String lname){
-//		List<Emp> lst = repo.findByEmpPManager(lname);
-//		return lst;
-//	}
+
 	
 	@PostMapping("/addemp")
 	public SuccessMsg addEmployee(@RequestBody EmpDto empdto) throws IdAlreadyExistsException, EmployeeNotFoundException {
@@ -77,16 +68,7 @@ public class EmpCrudRestController {
 //		emp.setManager(emp);
 		return emp;
 	}
-//	public SuccessMsg deletesubordinates(String name) throws EmployeeNotFoundException {
-//		List<Emp> optemp = repo.findByEmpPManager(name.toLowerCase());
-//		if(optemp.isEmpty()) 
-//			throw new EmployeeNotFoundException("Employee not found for "+ name);
-//		Emp emp = optemp.get(0);
-//		System.out.print(emp);
-//		repo.delete(emp);
-////		emp.setManager(emp);
-//		return new SuccessMsg("Employee Deleted");
-//	}
+
 
 	
 	@DeleteMapping("/removeemp")

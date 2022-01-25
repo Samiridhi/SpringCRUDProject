@@ -13,12 +13,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().
 
-				authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated()
+				authorizeRequests()
+				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated()
 				.and().httpBasic();
+//				.antMatchers("/admin").hasRole("ADMIN")
+//                .antMatchers("/user").hasAnyRole("ADMIN", "USER")
+//                .antMatchers("/").permitAll().and().httpBasic();
 	}
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("admin").password("{noop}password").roles("USER");
+		auth.inMemoryAuthentication().withUser("admin").password("{noop}password").roles("ADMIN");
 	}
 }

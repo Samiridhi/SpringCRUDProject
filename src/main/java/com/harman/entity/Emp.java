@@ -49,6 +49,12 @@ public class Emp {
 	@Column(name = "manager_id", insertable  = false, updatable = false)
 	private Integer idmanager;
 
+	public Emp(String empFName, String empLName, String empPManager, String empDesignation, String empProject) {
+		// TODO Auto-generated constructor stub
+	}
+	public Emp() {
+		// TODO Auto-generated constructor stub
+	}
 	public Integer getIdmanager() {
 		return idmanager;
 	}
