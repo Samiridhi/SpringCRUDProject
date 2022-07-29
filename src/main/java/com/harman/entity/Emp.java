@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -49,6 +51,12 @@ public class Emp {
 	@Column(name = "manager_id", insertable  = false, updatable = false)
 	private Integer idmanager;
 
+	@Column(name="gender")
+	private String gender;
+	
+//	public enum Gender {
+//	    MALE, FEMALE
+//	}
 	public Emp(String empFName, String empLName, String empPManager, String empDesignation, String empProject) {
 		// TODO Auto-generated constructor stub
 	}
@@ -69,6 +77,7 @@ public class Emp {
 	@JsonBackReference
 	private Set<Emp> subordinates = new HashSet<Emp>();
 
+	
 	public Emp getManager() {
 		return manager;
 	}
@@ -115,20 +124,23 @@ public class Emp {
 	public void setEmpDesignation(String empDesignation) {
 		this.empDesignation = empDesignation;
 	}
+	
+//	@Enumerated(EnumType.STRING)
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 	@Override
 	public String toString() {
 		return "Emp [empId=" + empId + ", empFName=" + empFName + ", empLName=" + empLName + ", empPManager="
-				+ empPManager + ", empDesignation=" + empDesignation + ", manager=" + manager + ", subordinates="
-				+ subordinates + ", empProject=" + empProject + "]";
+				+ empPManager + ", empDesignation=" + empDesignation + ", manager=" + manager + ", idmanager="
+				+ idmanager + ", gender=" + gender + ", subordinates=" + subordinates + ", empProject=" + empProject
+				+ "]";
 	}
 	
-//	@Override
-//	public String toString() {
-//		return "Emp [empId=" + empId + ", empFName=" + empFName + ", empLName=" + empLName + ", empDesignation="
-//				+ empDesignation + ", empProject=" + empProject + "]";
-//	}
-	
-	//no argument constructor
+
 
 
 }

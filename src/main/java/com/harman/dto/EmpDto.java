@@ -1,5 +1,7 @@
 package com.harman.dto;
 
+
+
 public class EmpDto {
 
 	private int empId;
@@ -9,6 +11,8 @@ public class EmpDto {
 	private String empDesignation;
 	private String empProject;
 	private Integer idmanager;
+	private String gender;
+	
 	
 	public Integer getIdmanager() {
 		return idmanager;
@@ -52,4 +56,11 @@ public class EmpDto {
 	public void setEmpDesignation(String empDesignation) {
 		this.empDesignation = empDesignation;
 	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	
 }

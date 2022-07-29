@@ -53,7 +53,8 @@ public class EmpCrudRestController {
 		emp.setEmpDesignation(empdto.getEmpDesignation());
 		emp.setEmpProject(empdto.getEmpProject());
 //		emp.setManager(emp);
-		emp.setManager(manager(emp.getEmpPManager()));		
+		emp.setManager(manager(emp.getEmpPManager()));	
+		emp.setGender(empdto.getGender());
 		repo.save(emp);
 		return new SuccessMsg("Employee Added Successfully");
 				
@@ -97,6 +98,7 @@ public class EmpCrudRestController {
 		emp.setEmpDesignation(empdto.getEmpDesignation());
 		emp.setEmpProject(empdto.getEmpProject());
 		emp.setManager(manager(emp.getEmpPManager()));	
+		emp.setGender(empdto.getGender());
 		repo.save(emp);
 		return new SuccessMsg("Employee Updated");
 	}
